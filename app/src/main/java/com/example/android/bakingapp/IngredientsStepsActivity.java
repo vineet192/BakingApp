@@ -95,7 +95,11 @@ public class IngredientsStepsActivity extends AppCompatActivity implements Ingre
 
                 editor.putStringSet(getString(R.string.ingredients_tag),sharedIngredients);
                 editor.apply();
-                IngredientsUpdateService.startActionUpdateIngredients(IngredientsStepsActivity.this);
+                AppWidgetManager manager = AppWidgetManager.getInstance(IngredientsStepsActivity.this);
+                int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(IngredientsStepsActivity.this,IngredientsWidgetProvider.class));
+                manager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.widget_ingredients_list_view);
+
+
             }
         });
 

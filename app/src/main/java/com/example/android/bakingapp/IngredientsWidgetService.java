@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.widget.Toast;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -22,6 +23,7 @@ public class IngredientsWidgetService extends RemoteViewsService {
 
         private final Context mContext;
         Set<String> mIngredientsSet;
+        SharedPreferences mPreference;
 
         public IngredientsWidgetItemFactory(Context context)
         {
@@ -29,12 +31,14 @@ public class IngredientsWidgetService extends RemoteViewsService {
         }
         @Override
         public void onCreate() {
+            mPreference = getSharedPreferences(getString(R.string.ingredients_shared_pref),MODE_PRIVATE);
         }
 
         @Override
         public void onDataSetChanged() {
-            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.ingredients_shared_pref),MODE_PRIVATE);
-            mIngredientsSet = sharedPreferences.getStringSet(getString(R.string.ingredients_tag),null);
+
+            mIngredientsSet = mPreference.getStringSet(getString(R.string.ingredients_tag),null);
+            Toast.makeText(getApplicationContext(), "WIDGET HAS BEEN UPDATED", Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -44,16 +48,13 @@ public class IngredientsWidgetService extends RemoteViewsService {
 
         @Override
         public int getCount() {
-            if(mIngredientsSet == null)
-                return 0;
-            else
-                return mIngredientsSet.size();
+
+            return mIngredientsSet.size();
         }
 
         @Override
         public RemoteViews getViewAt(int i) {
             RemoteViews views = new RemoteViews(mContext.getPackageName(),R.layout.ingredients_widget_item);
-            Iterator<String> iterator = mIngredientsSet.iterator();
             views.setTextViewText(R.id.ingredients_widget_text_item,mIngredientsSet.toArray()[i].toString());
             return views;
         }

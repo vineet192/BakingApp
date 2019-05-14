@@ -19,6 +19,14 @@
     android:layout_centerVertical="true"
     android:layout_centerHorizontal="true"
     android:textSize="20sp"
-    android:textStyle="bold"/>
+    android:textStyle="bold"
+    android:id="@+id/empty_text_view"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CLICK TO UPDATE"
+            android:layout_alignBottom="@id/empty_text_view"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/widget_update_button"/>
     </RelativeLayout>
 </FrameLayout>
