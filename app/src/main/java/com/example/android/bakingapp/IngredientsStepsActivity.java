@@ -98,6 +98,7 @@ public class IngredientsStepsActivity extends AppCompatActivity implements Ingre
                 AppWidgetManager manager = AppWidgetManager.getInstance(IngredientsStepsActivity.this);
                 int[] appWidgetIds = manager.getAppWidgetIds(new ComponentName(IngredientsStepsActivity.this,IngredientsWidgetProvider.class));
                 manager.notifyAppWidgetViewDataChanged(appWidgetIds,R.id.widget_ingredients_list_view);
+                Toast.makeText(IngredientsStepsActivity.this, "Ingredients added successfully !", Toast.LENGTH_SHORT).show();
 
 
             }

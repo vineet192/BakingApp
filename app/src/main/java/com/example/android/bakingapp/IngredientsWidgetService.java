@@ -16,10 +16,10 @@ public class IngredientsWidgetService extends RemoteViewsService {
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
-        return new IngredientsWidgetItemFactory(getApplicationContext());
+        return new IngredientsWidgetItemFactory(this.getApplicationContext());
     }
 
-    class IngredientsWidgetItemFactory implements RemoteViewsFactory {
+    class IngredientsWidgetItemFactory implements RemoteViewsService.RemoteViewsFactory {
 
         private final Context mContext;
         Set<String> mIngredientsSet;
@@ -38,7 +38,6 @@ public class IngredientsWidgetService extends RemoteViewsService {
         public void onDataSetChanged() {
 
             mIngredientsSet = mPreference.getStringSet(getString(R.string.ingredients_tag),null);
-            Toast.makeText(getApplicationContext(), "WIDGET HAS BEEN UPDATED", Toast.LENGTH_SHORT).show();
         }
 
         @Override

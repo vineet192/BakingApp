@@ -17,25 +17,11 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
                                 int appWidgetId) {
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_provider);
-        Intent ingredientsServiceIntent = new Intent(context,IngredientsWidgetService.class);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_ingredients_list_view);
+        Intent ingredientsServiceIntent = new Intent(context, IngredientsWidgetService.class);
         views.setRemoteAdapter(R.id.widget_ingredients_list_view,ingredientsServiceIntent);
         views.setEmptyView(R.id.widget_ingredients_list_view,R.id.empty_view);
 
-        Intent intentUpdate = new Intent(context, IngredientsWidgetProvider.class);
-        intentUpdate.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-        //Update the current widget instance only, by creating an array that contains the widget’s unique ID//
-
-        int[] idArray = new int[]{appWidgetId};
-        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray);
-
-        //Wrap the intent as a PendingIntent, using PendingIntent.getBroadcast()//
-
-        PendingIntent pendingUpdate = PendingIntent.getBroadcast(
-                context, appWidgetId, intentUpdate,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        views.setOnClickPendingIntent(R.id.widget_update_button, pendingUpdate);
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -50,7 +36,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
-            Toast.makeText(context, "Widget has been updated! ", Toast.LENGTH_SHORT).show();
         }
     }
 
